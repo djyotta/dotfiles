@@ -1,0 +1,24 @@
+#!/bin/sh
+# This finds new mail in the offlineimap 
+# syncronized MAILDIRs and passes the
+# new mail to procmail.
+# Sorry for the 'ACCOUNT' and 'account'
+# vars. They're only there for sanitization.
+PROCMAILD=$HOME/.procmail.d
+MAIL=$HOME/offlineimap
+ACCOUNTS=$HOME/.procmail/accounts
+for ACCOUNT in $(awk -e '{ print $1 }' $ACCOUNTS); do
+	account=`awk -e "/$ACCOUNT/ { print \\$2 }" $ACCOUNTS`
+	offlineimap -a $account 2>&1 | logger -t offlineimap
+	while read filename; do
+		# Since procmail uses stdin, we add a header
+		# which contains the original filname.
+		# Thus, if procmail moves the message, offlineimap
+		# will pick it up.
+		cat "$filename" | formail -I"X-Filename: $(basename "$filename")" | (procmail $HOME/.procmail/$ACCOUNT && rm "$filename")
+		# Note thate procmail removes the header inserted here
+		# so as not to screw up the md5 checksum offlineimap uses
+	done <<EOF
+`find $MAIL/$account -type f -newer $PROCMAILD/$account/log`
+EOF
+done
