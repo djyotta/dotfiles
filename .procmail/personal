@@ -1,0 +1,46 @@
+# Environment variable assignments
+PATH=/bin:/usr/bin:/usr/local/bin 
+# A simple file enumerating accounts
+#  - only for sanitization purposes. 
+#  - I don't want to reveal my e-mail address.
+ACCOUNT=`awk -e '/personal/ { print $2 }' $HOME/.procmail/accounts`
+VERBOSE=off                            # Turn on for verbose log
+# MAILDIR is where offlineimap is syncronizing
+# the mail for this account
+MAILDIR=$HOME/offlineimap/$ACCOUNT     # Where Procmail recipes deliver
+LOGFILE=$HOME/.procmaillog             # Keep a log for troubleshooting.
+PMDIR=$HOME/.procmail.d/$ACCOUNT
+DEFAULT=$MAILDIR/mbox
+LOGFILE=$PMDIR/log
+LOGABSTRACT=all
+
+# Recipes
+# The aim of these recipes is to move the files
+# that offlineimap stores in MAILDIR into 
+# appropriate directories.
+# Hence, procmail is run like:
+#   procmail && rm <processed-mail>
+# so that offlineimap will pick up on the moved
+# file and not simple copy the file.
+
+# Because offlineimap uses a different file name
+# convention from procmail for Maildir format, we
+# get procmail to use the filename header that is
+# added before processing. 
+# See the 'bin/syncemail' helper.
+FILENAME=`formail -zx"X-Filename"`
+
+# Remove file name header before continuing so
+# that the checksums that offlineimap creates 
+# are not screwed up
+:0fhw
+* ^X-Filename:
+| formail -I"X-Filename"
+
+# Return with error if no match is found to
+# prevent the unprocessed file from being rmoved.
+:0
+{
+		EXITCODE=127
+		HOST
+}
