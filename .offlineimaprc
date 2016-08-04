@@ -1,0 +1,52 @@
+[general]
+ui = ttyui
+accounts = personal, work
+pythonfile = ~/.offlineimap.py
+
+[Account personal]
+localrepository = gLocal
+remoterepository = gRemote
+# Helpful for GMail accounts
+synclabels = yes
+labelsheader = X-Keywords
+folderfilter = lambda folder: folder.startswith('[Gmail]/All Mail')
+
+[Account work] 
+localrepository = eLocal
+remoterepository = eRemote
+
+# For use with mutt
+# Without this, mutt shows all subdirs in MAILDIR
+# whether or not they are actual mailboxes
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+
+[Repository gLocal]
+type = Maildir
+# This directory should probably be:  ~/Mail/...
+localfolders = ~/offlineimap/personal
+
+[Repository gRemote]
+type = Gmail
+remotehosteval = get_host('personal')
+remoteusereval = get_user('personal')
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+# get_pass(email_address) takes an email address and returns the password
+# get_pass(email_address) is defined in .offlineimap.py 
+# you may do instead: remotepass = Pa$$w0rd
+remotepasseval = get_pass('personal')
+
+[Repository eLocal]
+type = Maildir
+localfolders = ~/offlineimap/work
+
+[Repository eRemote]
+type = IMAP
+remotehosteval = get_host('work')
+remoteusereval = get_user('work')
+remotepasseval = get_pass('work')

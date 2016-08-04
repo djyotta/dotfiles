@@ -7,9 +7,13 @@
 PROCMAILD=$HOME/.procmail.d
 MAIL=$HOME/offlineimap
 ACCOUNTS=$HOME/.procmail/accounts
+
+# Sync all accounts at once, otherwise
+# ~/.mutt/mailboxes will contain
+# the mailboxes of one account only
+offlineimap 2>&1 | logger -t offlineimap
 for ACCOUNT in $(awk -e '{ print $1 }' $ACCOUNTS); do
 	account=`awk -e "/$ACCOUNT/ { print \\$2 }" $ACCOUNTS`
-	offlineimap -a $account 2>&1 | logger -t offlineimap
 	while read filename; do
 		# Since procmail uses stdin, we add a header
 		# which contains the original filname.
