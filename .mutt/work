@@ -1,0 +1,16 @@
+set move=no
+set folder = ~/offlineimap/work
+source ~/.mutt/mailboxes
+set my_account="`awk -e '/work/ { print $2 }' ~/.procmail/accounts`"
+set spoolfile = +INBOX
+set record = +Sent\ Items
+set postponed = +Drafts
+set trash= +Trash
+set imap_keepalive=60
+set sendmail="/usr/bin/msmtp -a work"
+set use_from=yes
+set realname="Daniel Sheffield"
+set envelope_from=yes
+set signature="~/.mutt/signatures/work"
+set from=$my_account
+set query_command = "~/.mutt/query_ldap.pl %s"

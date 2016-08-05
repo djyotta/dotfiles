@@ -1,0 +1,59 @@
+# .mutt/muttrc
+# Load address book
+source ~/.mutt/abook
+
+# Use Cache
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+
+# Define sorting method
+set sort=threads
+set sort_browser=date
+set sort_aux=last-date-received
+
+# Poll mailbox automatically
+set imap_idle
+
+# Notify on new mail
+set beep
+
+# HTML support
+set mailcap_path=~/.mailcap
+auto_view text/html
+#macro attach 'V' "<pipe-entry>cat >~/.cache/mutt/mail.html && $BROWSER ~/.cache/mutt/mail.html && rm ~/.cache/mutt/mail.html<enter>"
+
+# Open links in external browser
+macro pager \cu <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+
+# Gmail address book via goobook
+#set query_command="goobook query '%s'"
+#bind editor complete-query
+#macro index,pager a "<pipe-message>goobook add<return>" "add the sender address to Google contacts"
+
+macro index <esc>2 '<enter-command>source ~/.mutt/personal<enter><change-folder>!<enter>'
+macro index <esc>3 '<enter-command>source ~/.mutt/work<enter><change-folder>!<enter>'
+
+# Switch to default account on startup
+source ~/.mutt/personal
+# Set emacs to be default external editor
+set editor='emacsclient -nw'
+
+# More
+## Lets have some fuzzy threading.
+#set nostrict_threads
+## Don't wait around for sendmail.
+set sendmail_wait=-1
+# What we consider to be a quote.
+set quote_regexp="^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+
+# Display
+#folder-hook   *[sS]ent* 'set index_format="%2C | %Z [%d] %-30.30t (%-4.4c) %?M?<%M> ?%s"'
+#folder-hook ! *[sS]ent* 'set index_format="%2C | %Z [%d] %-30.30F (%-4.4c) %?M?<%M> ?%s"'
+folder-hook    .*[sS]ent.* 'set index_format="%Z%4C%?M?+& ?%2M %-100.100s %-25.25t %D"'
+folder-hook  ! .*[sS]ent.* 'set index_format="%Z%4C%?M?+& ?%2M %-100.100s %-25.25F %D"'
+#set index_format="%Z%4C%?M?+& ?%2M %-100.100s %-25.25L %D"
+set date_format="%a %d%b%2y %I:%M:%S%p"
+set sleep_time=0
+color search	brightyellow	red				# Matching search
+color index     green          default  ~T      # Tagged
+color index     red            default  ~D      # Deleted

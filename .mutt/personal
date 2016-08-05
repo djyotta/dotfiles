@@ -1,0 +1,17 @@
+set move=no
+# IMAP: offlineimap
+source ~/.mutt/mailboxes
+set my_account="`awk -e '/personal/ { print $2 }' ~/.procmail/accounts`"
+set folder = ~/offlineimap/personal
+set spoolfile = +INBOX
+set postponed = +Drafts
+set sendmail="/usr/bin/msmtp -a personal"
+unset record
+set trash=+Trash
+set signature= ~/.mutt/signatures/personal
+set realname= 'Daniel Sheffield'
+set use_from=yes
+set envelope_from=yes
+set query_command = "lbdbq %s"
+set from=$my_account
+
