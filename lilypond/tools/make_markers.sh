@@ -8,13 +8,9 @@
 set -x
 gawk -f - $1 <<'EOF'
 BEGIN {
-    bar = 0
+    bar = 1
 }
 {
-	if (match($0, "\\\\time[ \t\n\r]*([0-9]+)/([0-9])+", tok)) {
-		r[bar+1] = "s"tok[2]"*"tok[1]
-        if ( !bar ) r[bar] = r[bar+1]
-    }
 	if (match($0, "\\|[ \t\n\r]*[%][ \t\n\r]*([0-9]+)", tok)) {
 		bar = tok[1]
         if (b[bar-1]) r[bar] = r[bar-1]
@@ -32,7 +28,9 @@ BEGIN {
         }
 		if (!m[tok[1]]++) print "\\mark \\markup { \\box { " tok[1] " } } "
     }
-
+	if (match($0, "\\\\time[ \t\n\r]*([0-9]+)/([0-9])+", tok)) {
+		r[bar] = "s"tok[2]"*"tok[1]
+    }
 }
 EOF
 
