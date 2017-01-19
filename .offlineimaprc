@@ -27,7 +27,7 @@ sep = " "
 footer = "\n"
 
 [Repository gLocal]
-type = Maildir
+type = GmailMaildir
 # This directory should probably be:  ~/Mail/...
 localfolders = ~/offlineimap/personal
 
@@ -47,6 +47,7 @@ localfolders = ~/offlineimap/work
 
 [Repository eRemote]
 type = IMAP
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 remotehosteval = get_host('work')
 remoteusereval = get_user('work')
 remotepasseval = get_pass('work')

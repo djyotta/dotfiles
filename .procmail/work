@@ -60,7 +60,7 @@ $MAILDIR/Bamboo.builds/new/$FILENAME
 $MAILDIR/Bamboo/new/$FILENAME
 
 :0:
-* ^Subject:[ 	]+Pull request
+* ^Subject:.*Pull request
 $MAILDIR/Stash/new/$FILENAME
 
 :0:

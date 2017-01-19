@@ -19,7 +19,7 @@ for ACCOUNT in $(awk -e '{ print $1 }' $ACCOUNTS); do
 		# which contains the original filname.
 		# Thus, if procmail moves the message, offlineimap
 		# will pick it up.
-		cat "$filename" | formail -I"X-Filename: $(basename "$filename")" | (procmail $HOME/.procmail/$ACCOUNT && rm "$filename")
+		[ -f "$filename" ] && (cat "$filename" | formail -I"X-Filename: $(basename "$filename")" | (procmail $HOME/.procmail/$ACCOUNT && rm "$filename"))
 		# Note thate procmail removes the header inserted here
 		# so as not to screw up the md5 checksum offlineimap uses
 	done <<EOF

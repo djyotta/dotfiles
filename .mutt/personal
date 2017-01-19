@@ -4,7 +4,7 @@ source ~/.mutt/mailboxes
 set my_account="`awk -e '/personal/ { print $2 }' ~/.procmail/accounts`"
 set folder = ~/offlineimap/personal
 set spoolfile = +INBOX
-set postponed = +Drafts
+set postponed = +[Gmail].Drafts
 set sendmail="/usr/bin/msmtp -a personal"
 unset record
 set trash=+Trash

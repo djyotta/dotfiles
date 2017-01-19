@@ -1,7 +1,10 @@
-application/pdf; apvlv %s
+application/pdf; xpdf %s
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; libreoffice --calc %s
+application/vnd.oasis.opendocument.spreadsheet; libreoffice --calc %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice --writer %s
+application/vnd.oasis.opendocument.document; libreoffice --writer %s
 application/vnd.openxmlformats-officedocument.presentationml.presentation; libreoffice --impress %s
-text/html; lynx -stdin -dump; copiousoutput;
+application/vnd.oasis.opendocument.presentation; libreoffice --impress %s
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 application/x-java-jnlp-file; javaws %s
 image/jpeg; display %s

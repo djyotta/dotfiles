@@ -2,6 +2,11 @@
 # Load address book
 source ~/.mutt/abook
 
+# Load crypto settings
+source ~/.mutt/crypto
+# for inline PGP in mail received
+message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
+
 # Use Cache
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
