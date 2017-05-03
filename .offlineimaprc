@@ -33,9 +33,11 @@ localfolders = ~/offlineimap/personal
 
 [Repository gRemote]
 type = Gmail
+ssl = yes
 remotehosteval = get_host('personal')
 remoteusereval = get_user('personal')
-sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+sslcacertfile = OS-DEFAULT
+auth_mechanisms = PLAIN
 # get_pass(email_address) takes an email address and returns the password
 # get_pass(email_address) is defined in .offlineimap.py 
 # you may do instead: remotepass = Pa$$w0rd
@@ -47,7 +49,9 @@ localfolders = ~/offlineimap/work
 
 [Repository eRemote]
 type = IMAP
-sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl = yes
+sslcacertfile = OS-DEFAULT
+auth_mechanisms = PLAIN
 remotehosteval = get_host('work')
 remoteusereval = get_user('work')
 remotepasseval = get_pass('work')
