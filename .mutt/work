@@ -12,5 +12,6 @@ set use_from=yes
 set realname="Daniel Sheffield"
 set envelope_from=yes
 set signature="~/.mutt/signatures/work"
+set sendmail_wait = 0   # don't silently fail
 set from=$my_account
 set query_command = "~/.mutt/query_ldap.pl %s"
