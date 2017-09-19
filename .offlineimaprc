@@ -49,9 +49,11 @@ localfolders = ~/offlineimap/work
 
 [Repository eRemote]
 type = IMAP
-ssl = yes
+ssl = no
 sslcacertfile = OS-DEFAULT
-auth_mechanisms = PLAIN
-remotehosteval = get_host('work')
+auth_mechanisms = LOGIN
+remotehost = localhost
+remoteport = 2525
+#remotehosteval = get_host('work')
 remoteusereval = get_user('work')
 remotepasseval = get_pass('work')
