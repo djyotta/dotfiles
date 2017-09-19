@@ -6,6 +6,7 @@ set folder = ~/offlineimap/personal
 set spoolfile = +INBOX
 set postponed = +[Gmail].Drafts
 set sendmail="/usr/bin/msmtp -a personal"
+set sendmail_wait = 0   # don't silently fail
 unset record
 set trash=+Trash
 set signature= ~/.mutt/signatures/personal
