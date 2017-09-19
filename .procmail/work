@@ -10,6 +10,7 @@ LOGFILE=$HOME/.procmaillog             # Keep a log for troubleshooting.
 PMDIR=$HOME/.procmail.d/$ACCOUNT
 DEFAULT=$MAILDIR/mbox
 LOGFILE=$PMDIR/log
+ATLASSIAN=Atlassian
 LOGABSTRACT=all
 
 # Recipes
@@ -37,35 +38,35 @@ FILENAME=`formail -zx"X-Filename"`
 
 :0:
 * ^Subject:[ 	]+.JIRA.*.
-$MAILDIR/JIRA/new/$FILENAME
+$MAILDIR/$ATLASSIAN/new/$FILENAME
 
 :0:
 * ^Subject:[ 	]+.confluence.
-$MAILDIR/Confluence/new/$FILENAME
+$MAILDIR/$ATLASSIAN/new/$FILENAME
 
 :0:
 * ^Subject:[ 	]+.Bamboo. Release Manager > (Automated|Run) Performance Tests
-$MAILDIR/Bamboo.performance/new/$FILENAME
+$MAILDIR/$ATLASSIAN/new/$FILENAME
 
 :0:
 * ^Subject:[ 	]+.Bamboo. OSm > OSm Nightly Build
-$MAILDIR/Bamboo.builds/new/$FILENAME
+$MAILDIR/$ATLASSIAN/new/$FILENAME
 
 :0:
 * ^Subject:[ 	]+.Bamboo. Release Manager > Develop Weekly
-$MAILDIR/Bamboo.builds/new/$FILENAME
+$MAILDIR/$ATLASSIAN/new/$FILENAME
 
 :0:
 * ^Subject:[ 	]+.Bamboo.
-$MAILDIR/Bamboo/new/$FILENAME
+$MAILDIR/$ATLASSIAN/new/$FILENAME
 
 :0:
 * ^Subject:.*Pull request
-$MAILDIR/Stash/new/$FILENAME
+$MAILDIR/$ATLASSIAN/new/$FILENAME
 
 :0:
 * ^Subject:[	]+Build.[0-9]+
-$MAILDER/Bamboo.builds/new/$FILENAME
+$MAILDIR/$ATLASSIAN/new/$FILENAME
 
 # Return with error if no match is found to
 # prevent the unprocessed file from being rmoved.
